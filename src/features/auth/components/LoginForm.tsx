@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import Link from "next/link"
 
 export default function Login() {
     return (
@@ -22,10 +23,12 @@ export default function Login() {
                     digite seu e-mail
                 </CardDescription>
                 <CardAction>
-                    <Button variant="link"><a
-                        href="/signup">
-                        Criar Conta
-                    </a></Button>
+                    <Button variant="link" asChild>
+                        <Link href="/signup">
+                            Criar conta
+                        </Link>
+
+                    </Button>
                 </CardAction>
             </CardHeader>
             <CardContent>
