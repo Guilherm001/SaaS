@@ -13,6 +13,8 @@ import { Label } from "@/components/ui/label"
 
 export default function Login() {
     return (
+
+
         <Card className="w-full max-w-sm ">
             <CardHeader>
                 <CardTitle>Logue na sua conta</CardTitle>
@@ -20,7 +22,10 @@ export default function Login() {
                     digite seu e-mail
                 </CardDescription>
                 <CardAction>
-                    <Button variant="link">Criar conta</Button>
+                    <Button variant="link"><a
+                        href="/signup">
+                        Criar Conta
+                    </a></Button>
                 </CardAction>
             </CardHeader>
             <CardContent>
@@ -61,3 +66,4 @@ export default function Login() {
         </Card>
     )
 }
+
