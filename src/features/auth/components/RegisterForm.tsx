@@ -28,8 +28,27 @@ const signupSchema = z.object({
     path: ["confirmPassword"]
 })
 
+type SignupFormValues = z.infer<typeof signupSchema>
+
+
 
 export default function Register() {
+
+    const router = useRouter()
+    const [showPassword, setShowPassuord] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
+    const form = useForm<SignupFormValues>({
+        resolver: zodResolver(signupSchema),
+        defaultValues: {
+            name: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+        }
+    })
+
+
     return (
         <div className="flex justify-center items-center min-h-screen">
             <Card className="w-full max-w-sm ring-0 shadow-none ">
