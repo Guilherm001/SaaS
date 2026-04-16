@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import {
@@ -8,6 +9,25 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
+
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { z } from "zod"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+
+
+
+const signupSchema = z.object({
+    name: z.string().min(2, "Nome deve conter no mínimo 2 caracteres"),
+    email: z.string().email("Email inválido"),
+    password: z.string().min(8, "Senha deve conter no mínimo 8 caracteres"),
+    confirmPassword: z.string().min(8, "Confirmação de senha deve conter no mínimo 8 caracteres"),
+}).refine((data) => data.password === data.confirmPassword, {
+    message: "As senhas não coincidem",
+    path: ["confirmPassword"]
+})
+
 
 export default function Register() {
     return (
