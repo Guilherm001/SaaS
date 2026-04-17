@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { authClient } from "@/src/lib/authClient"
 
 
 
@@ -48,46 +49,78 @@ export default function Register() {
         }
     })
 
+    async function onSubmit(formData: SignupFormValues) {
+        const { data, error } = await authClient.signUp.email({
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+        }, {
+            onRequest: (ctx) => {
+
+            },
+            onSuccess: (ctx) => {
+                router.push("/dashboard")
+                console.log("Registro realizado com sucesso!")
+
+            },
+            onError: (ctx) => {
+                console.log("Erro ao registrar:", ctx.error)
+            }
+        }
+        )
+    }
+
 
     return (
         <div className="flex justify-center items-center min-h-screen">
             <Card className="w-full max-w-sm ring-0 shadow-none ">
-                <FieldGroup>
-                    <Field>
-                        <FieldLabel htmlFor="fieldgroup-name">Name</FieldLabel>
-                        <Input id="fieldgroup-name" placeholder="Jordan Lee" />
-                    </Field>
-                    <Field>
-                        <FieldLabel htmlFor="fieldgroup-email">Email</FieldLabel>
-                        <Input
-                            id="fieldgroup-email"
-                            type="email"
-                            placeholder="name@example.com"
-                        />
-                    </Field>
-                    <Field>
-                        <FieldLabel htmlFor="password">Senha</FieldLabel>
-                        <Input
-                            id="Password"
-                            type="Password"
-                        />
-                    </Field>
-                    <Field>
-                        <FieldLabel htmlFor="Password">Confirme a Senha</FieldLabel>
-                        <Input
-                            id="Password"
-                            type="Password"
-                        />
-                    </Field>
-                    <Field orientation="horizontal">
-                        <Button type="reset" variant="outline" asChild>
-                            <Link href="/">
-                                Voltar
-                            </Link>
-                        </Button>
-                        <Button type="submit">Submit</Button>
-                    </Field>
-                </FieldGroup>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="p-6">
+                    <FieldGroup>
+                        <Field>
+                            <FieldLabel htmlFor="fieldgroup-name">Name</FieldLabel>
+                            <Input
+                                id="fieldgroup-name"
+                                placeholder="Jordan Lee"
+                                {...form.register("name")}
+                            />
+                        </Field>
+                        <Field>
+                            <FieldLabel htmlFor="fieldgroup-email">Email</FieldLabel>
+                            <Input
+                                id="fieldgroup-email"
+                                type="email"
+                                placeholder="name@example.com"
+                                {...form.register("email")}
+                            />
+                        </Field>
+                        <Field>
+                            <FieldLabel htmlFor="password">Senha</FieldLabel>
+                            <Input
+                                id="fieldgroup-password"
+                                type="password"
+                                placeholder="••••••••"
+                                {...form.register("password")}
+                            />
+                        </Field>
+                        <Field>
+                            <FieldLabel htmlFor="Password">Confirme a Senha</FieldLabel>
+                            <Input
+                                id="fieldgroup-confirmPassword"
+                                type="password"
+                                placeholder="••••••••"
+                                {...form.register("confirmPassword")}
+                            />
+                        </Field>
+                        <Field orientation="horizontal">
+                            <Button type="reset" variant="outline" asChild>
+                                <Link href="/">
+                                    Voltar
+                                </Link>
+                            </Button>
+                            <Button type="submit">Cadastrar</Button>
+                        </Field>
+                    </FieldGroup>
+                </form>
             </Card>
         </div>
     )
