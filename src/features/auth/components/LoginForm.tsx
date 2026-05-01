@@ -68,9 +68,7 @@ export default function Login() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="p-6">
                 <CardHeader>
                     <CardTitle>Logue na sua conta</CardTitle>
-                    <CardDescription>
-                        digite seu e-mail
-                    </CardDescription>
+
                     <CardAction>
                         <Button variant="link" asChild>
                             <Link href="/signup">
@@ -80,32 +78,29 @@ export default function Login() {
                     </CardAction>
                 </CardHeader>
                 <CardContent>
-                    
-                        <div className="flex flex-col gap-6">
-                            <div className="grid gap-2">
-                                <Label htmlFor="email">Email</Label>
-                                <Input
-                                    id="email"
-                                    type="email"
-                                    placeholder="email@email.com"
-                                    required
-                                    {...form.register("email")}
-                                />
-                            </div>
-                            <div className="grid gap-2">
-                                <div className="flex items-center">
-                                    <Label htmlFor="password">Senha</Label>
-                                    <a
-                                        href="#"
-                                        className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                                    >
-                                        Esqueceu a senha?
-                                    </a>
-                                </div>
-                                <Input id="password" type="password" required {...form.register("password")} />
-                            </div>
+
+                    <div className="flex flex-col gap-6">
+                        <div className="grid gap-2">
+                            <Label htmlFor="email">Email</Label>
+                            <Input
+                                id="email"
+                                type="email"
+                                placeholder="email@email.com"
+                                required
+                                {...form.register("email")}
+                            />
                         </div>
-                    
+                        <div className="grid gap-2">
+                            <div className="flex items-center">
+                                <Label htmlFor="password">Senha</Label>
+                                <Link href="password" className="ml-auto inline-block text-sm underline-offset-4 hover:underline">
+                                    esqueceu a senha?
+                                </Link>
+                            </div>
+                            <Input id="password" type="password" required {...form.register("password")} />
+                        </div>
+                    </div>
+
                 </CardContent>
                 <CardFooter className="flex-col gap-2">
                     <Button type="submit" className="w-full">
